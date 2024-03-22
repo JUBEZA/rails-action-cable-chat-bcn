@@ -12,8 +12,13 @@ export default class extends Controller {
 
     createConsumer().subscription.create(
       { channel: "ChatroomChannel", id: this.chatroomIdValue },
-      { received: (data) => { this.messagesTarget.insertAdjacentHTML("beforend",data) } }
+      { received: (data) =>  { this.#insertMessageAndScrollDown(data) }}
     )
+  }
+
+  #insertMessageAndScrollDown(data) {
+    this.messagesTarget.insertAdjacentHTML("beforeend", data)
+    this.messagesTarget.scrollTo(0, this.messagesTarget.scrollHeight)
   }
 }
 
